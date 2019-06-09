@@ -19,3 +19,6 @@
 - action: msg_3
   encoding: ascii
   from: account_name_3
+- action: msg_3
+  encoding: ascii
+  from: account_name_3

@@ -11,8 +11,8 @@ def validate_request(raw):
 def make_response(request, code, data=None):
     return {
         'action': request.get('action'),
-        'user': request.get('user'),
         'time': datetime.now().timestamp(),
+        'user': request.get('user'),
         'data': data,
         'code': code,
     }

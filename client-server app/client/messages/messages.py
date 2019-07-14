@@ -1,27 +1,28 @@
-import json
+echo_message = {
+    'action': 'echo',
+    'time': None,
+
+    'data': None,
+}
 
 
-def presence_message(time, user):
-    message_obj = {
-        'action': 'presence',
-        'time': time,
-        'type': 'status',
-        'user': {
-            'account_name': user['account_name'],
-            'status': user['status']
-        }
-    }
-    message_str = json.dumps(message_obj)
-    return message_str
+presence_message = {
+    'action': 'presence',
+    'time': None,
+
+    'type': 'status',
+    'user': {
+        'account_name': None,
+        'status': None,
+    },
+}
 
 
-def private_message(time, message):
-    message_obj = {
-        'action': 'msg',
-        'time': time,
-        'to': 'account_name',
-        'from': 'account_name',
-        'message': message
-    }
-    message_str = json.dumps(message_obj)
-    return message_str
+private_message = {
+    'action': 'msg',
+    'time': None,
+
+    'to': None,
+    'from': None,
+    'message': None
+}

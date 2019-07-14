@@ -2,11 +2,8 @@ import json
 import yaml
 import socket
 from argparse import ArgumentParser
-from datetime import datetime
-try:
-    from .messages import presence_message
-except ImportError:
-    from messages import presence_message
+
+from protocol import make_request
 
 
 parser = ArgumentParser()
@@ -22,7 +19,6 @@ port = 8000
 buffer_size = 1024
 encoding = 'utf-8'
 
-# print(presence_message('12/06/2019', {'account_name': 'ggH', 'status': 'good'}))
 
 if args.config:
     with open(args.config) as file:
@@ -37,20 +33,21 @@ user = {
 }
 
 try:
-    sock = socket.socket()
-    sock.connect((host, port))
-    print(f'Client was started at {host}:{port}')
-    action = input('Enter action: ')
-    data = input('Enter data: ')
-    request = {
-        'action': action,
-        'time': datetime.now().timestamp(),
-        'data': data
-    }
-    s_request = json.dumps(request)
+    while True:
+        sock = socket.socket()
+        sock.connect((host, port))
+        print(f'Client was started at {host}:{port}')
 
-    sock.send(s_request.encode(encoding))
-    response = sock.recv(buffer_size)
-    print(response.decode(encoding))
+        action = input('Enter action: ')
+
+        request = make_request(action)
+
+        s_request = json.dumps(request)
+
+        sock.send(s_request.encode(encoding))
+        response = sock.recv(buffer_size)
+        sock.close()
+        print(response.decode(encoding))
+
 except KeyboardInterrupt:
     pass

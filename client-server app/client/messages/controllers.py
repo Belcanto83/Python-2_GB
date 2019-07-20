@@ -1,9 +1,9 @@
 from datetime import datetime
 
 try:
-    from .messages import echo_message, private_message
+    from .messages import echo_message, private_message, bad_message
 except ImportError:
-    from messages import echo_message, private_message
+    from messages import echo_message, private_message, bad_message
 
 
 def make_echo_request():
@@ -22,6 +22,15 @@ def make_private_message():
     message['from'] = 'my_account_name'
     message['to'] = input('Введите имя контакта получателя: ')
     message['message'] = input('Введите текст сообщения: ')
+
+    message['time'] = datetime.now().timestamp()
+    return message
+
+
+def test_bad_request():
+    message = bad_message
+
+    message['data'] = input('Введите данные BAD-запроса: ')
 
     message['time'] = datetime.now().timestamp()
     return message

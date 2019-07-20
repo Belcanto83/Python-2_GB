@@ -3,6 +3,8 @@ import yaml
 import socket
 from argparse import ArgumentParser
 
+import logging
+import client_log_config
 from protocol import make_request
 
 
@@ -26,6 +28,8 @@ if args.config:
         host = config.get('host')
         port = config.get('port')
 
+logger = logging.getLogger('client.main')
+
 user = {
     'account_name': 'user_1',
     'password': 'admin',
@@ -36,7 +40,8 @@ try:
     while True:
         sock = socket.socket()
         sock.connect((host, port))
-        print(f'Client was started at {host}:{port}')
+        logger.info('Client was started at %s:%s', host, port)
+        # print(f'Client was started at {host}:{port}')
 
         action = input('Enter action: ')
 

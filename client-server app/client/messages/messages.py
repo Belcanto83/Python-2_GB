@@ -26,3 +26,11 @@ private_message = {
     'from': None,
     'message': None
 }
+
+
+bad_message = {
+    'action': 'bad_request',
+    'time': None,
+
+    'data': None,
+}

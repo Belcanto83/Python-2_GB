@@ -3,6 +3,7 @@ import yaml
 import socket
 from argparse import ArgumentParser
 import logging
+import logging.handlers as handlers
 from _thread import start_new_thread
 
 from actions import resolve
@@ -25,7 +26,11 @@ encoding = 'utf-8'
 
 def threaded(c):
     b_request = c.recv(buffer_size)
-    request = json.loads(b_request.decode(encoding))
+    try:
+        request = json.loads(b_request.decode(encoding))
+    except Exception:
+        logger.error('Not correct request: %s', b_request)
+        exit()
     if validate_request(request):
         action_name = request.get('action')
         controller = resolve(action_name)
@@ -53,9 +58,10 @@ if args.config:
         host = config.get('host')
         port = config.get('port')
 
-logger = logging.getLogger('main')
+logger = logging.getLogger('server.main')
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-file_handler = logging.FileHandler('main.log', encoding='utf-8')
+# file_handler = logging.FileHandler('main.log', encoding='utf-8')
+file_handler = handlers.TimedRotatingFileHandler('main.log', when='H', interval=24, backupCount=1, encoding='utf-8')
 
 file_handler.setFormatter(formatter)
 file_handler.setLevel(logging.DEBUG)
@@ -74,7 +80,7 @@ logger.info(f'Server was started at {host}:{port}')
 
 while True:
     client, address = sock.accept()
-    print(f'Client was detected at {address}')
+    logger.info('Client was detected at %s', address)
     start_new_thread(threaded, (client, ))
 
 sock.close()

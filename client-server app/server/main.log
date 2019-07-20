@@ -1,1 +1,28 @@
-2019-07-08 22:48:37,006 - INFO - Server was started at localhost:8000
+2019-07-18 16:12:15,197 - INFO - Client was detected at ('127.0.0.1', 61202)
+2019-07-18 16:22:21,204 - INFO - Server was started at localhost:8000
+2019-07-18 16:23:05,903 - INFO - Client was detected at ('127.0.0.1', 61289)
+2019-07-18 16:23:14,171 - INFO - Client was detected at ('127.0.0.1', 61290)
+2019-07-18 16:24:59,213 - INFO - Client was detected at ('127.0.0.1', 61307)
+2019-07-18 16:28:15,252 - INFO - Client was detected at ('127.0.0.1', 61331)
+2019-07-18 16:28:40,041 - ERROR - 400 - wrong request: {'action': 'bad_request', 'time': 1563456520.041617, 'data': 'hello, my friend'}
+2019-07-18 16:28:40,057 - INFO - Client was detected at ('127.0.0.1', 61334)
+2019-07-18 16:29:25,302 - INFO - Client was detected at ('127.0.0.1', 61341)
+2019-07-18 16:29:41,074 - INFO - Client was detected at ('127.0.0.1', 61342)
+2019-07-18 22:22:29,699 - INFO - Server was started at localhost:8000
+2019-07-18 22:22:35,970 - INFO - Client was detected at ('127.0.0.1', 52553)
+2019-07-18 22:22:46,937 - INFO - Client was detected at ('127.0.0.1', 52556)
+2019-07-18 22:23:18,730 - ERROR - 400 - wrong request: {'action': 'msg', 'time': 1563477798.73001, 'to': 'alex', 'from': 'my_account_name', 'message': 'hello, Nick'}
+2019-07-18 22:23:18,730 - INFO - Client was detected at ('127.0.0.1', 52560)
+2019-07-18 22:27:41,460 - INFO - Server was started at localhost:8000
+2019-07-18 22:27:47,062 - INFO - Client was detected at ('127.0.0.1', 52590)
+2019-07-18 22:28:15,470 - INFO - Client was detected at ('127.0.0.1', 52593)
+2019-07-18 22:28:15,470 - ERROR - Not correct request: b'hello, Nick'
+2019-07-18 22:28:15,486 - INFO - Client was detected at ('127.0.0.1', 52594)
+2019-07-18 22:31:34,018 - INFO - Server was started at localhost:8000
+2019-07-18 22:31:39,338 - INFO - Client was detected at ('127.0.0.1', 52618)
+2019-07-18 22:31:52,255 - INFO - Client was detected at ('127.0.0.1', 52619)
+2019-07-18 22:31:52,270 - ERROR - Not correct request: b'hi, nick'
+2019-07-18 22:31:52,270 - INFO - Client was detected at ('127.0.0.1', 52620)
+2019-07-19 16:56:46,469 - INFO - Server was started at localhost:8000
+2019-07-19 16:56:51,788 - INFO - Client was detected at ('127.0.0.1', 53654)
+2019-07-19 16:57:06,312 - INFO - Client was detected at ('127.0.0.1', 53655)

@@ -1,5 +1,6 @@
 import json
 import yaml
+import zlib
 import socket
 from argparse import ArgumentParser
 
@@ -12,6 +13,10 @@ parser = ArgumentParser()
 parser.add_argument(
     '-c', '--config', type=str,
     help='Sets run configuration file'
+)
+parser.add_argument(
+    '-m', '--mode', type=str, default='w',
+    help='Sets client mode'
 )
 
 args = parser.parse_args()
@@ -37,22 +42,23 @@ user = {
 }
 
 try:
-    while True:
-        sock = socket.socket()
-        sock.connect((host, port))
-        logger.info('Client was started at %s:%s', host, port)
-        # print(f'Client was started at {host}:{port}')
+    sock = socket.socket()
+    sock.connect((host, port))
+    logger.info('Client was started at %s:%s', host, port)
 
-        action = input('Enter action: ')
+    if args.mode == 'w':
+        while True:
+            action = input('Enter action: ')
 
-        request = make_request(action)
-
-        s_request = json.dumps(request)
-
-        sock.send(s_request.encode(encoding))
-        response = sock.recv(buffer_size)
-        sock.close()
-        print(response.decode(encoding))
+            request = make_request(action)
+            s_request = json.dumps(request)
+            b_request = zlib.compress(s_request.encode(encoding))
+            sock.send(b_request)
+    else:
+        while True:
+            response = sock.recv(buffer_size)
+            b_response = zlib.decompress(response)
+            print(b_response.decode(encoding))
 
 except KeyboardInterrupt:
     pass

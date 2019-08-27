@@ -1,7 +1,9 @@
 echo_message = {
     'action': 'echo',
     'time': None,
+    'user': None,
 
+    'from': None,
     'data': None,
 }
 
@@ -32,5 +34,6 @@ bad_message = {
     'action': 'bad_request',
     'time': None,
 
+    'from': None,
     'data': None,
 }

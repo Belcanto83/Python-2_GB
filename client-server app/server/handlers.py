@@ -6,7 +6,6 @@ from middleware import compression_middleware
 from protocol import validate_request, make_response
 
 
-@compression_middleware
 def handle_default_request(raw_request):
     logger = logging.getLogger('server.main')
 
@@ -31,4 +30,9 @@ def handle_default_request(raw_request):
         logger.error(f'400 - wrong request: {request}')
         response = make_response(request, 400, 'Wrong request')
 
+    return response
+
+
+@compression_middleware
+def encode_response(response):
     return json.dumps(response).encode()

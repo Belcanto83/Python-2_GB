@@ -78,11 +78,49 @@ logger.setLevel(logging.DEBUG)
 
 ######################################################
 connections = []  # Список доступных подключений клиентов
-requests = []
+connections_map = {}
 
-# rlist = []
-# wlist = []
 ######################################################
+
+
+# Данная функция НЕ портируется отдельно, т.к. использует глобальные переменные! Это плохо..
+def add_new_connection():
+    # Формируем словарь "connections_map" вида {account_name: socket}
+    try:
+        client, address = sock.accept()
+        logger.info('Client was detected at %s', address)
+
+        # получаем "presence message" от нового клиента
+        presence_b_request = client.recv(buffer_size)
+        presence_request = handle_default_request(presence_b_request)
+        connections_map[presence_request.get('user')] = client
+        connections.append(client)
+    except OSError:
+        pass
+
+
+def read_requests(r_clients, all_clients):
+    # Формируем словарь "requests_map" вида {socket: b_request}
+    requests_map = {}
+    for r_client in r_clients:
+        try:
+            b_request = r_client.recv(buffer_size)
+            requests_map[r_client] = b_request
+            # requests.append(b_request)
+        except OSError:
+            logger.info('Client %s was disconnected', r_client.getpeername())
+            r_client.close()
+            all_clients.remove(r_client)
+
+    return requests_map
+
+
+def write_responses(requests, connections_map, w_clients, all_clients):
+    for user in requests.keys():
+        user_socket = requests.get(user)
+
+
+
 
 sock = socket.socket()
 sock.bind((host, port))
@@ -92,28 +130,21 @@ sock.listen(5)
 logger.info(f'Server was started at {host}:{port}')
 # print(f'Server was started at {host}:{port}')
 
+# mainloop()
 while True:
-    try:
-        client, address = sock.accept()
-        logger.info('Client was detected at %s', address)
-        connections.append(client)
-        # rlist, wlist, xlist = select.select(connections, connections, connections, 0)
-    except Exception:
-        pass
+    # 1) Добавляем одно новое соединение в список "connections"
+    # Формируем словарь вида {account_name: socket}
+    add_new_connection()
 
     if connections:
         rlist, wlist, xlist = select.select(connections, connections, connections, 0)
         # print('r_list: ', rlist)
         # print('w_list: ', wlist)
-        for r_client in rlist:
-            try:
-                b_request = r_client.recv(buffer_size)
-                requests.append(b_request)
-            except OSError:
-                logger.info('Client %s was disconnected', r_client.getpeername())
-                r_client.close()
-                connections.remove(r_client)
 
+        # 2) Читаем все запросы из списка всех клиентов
+        requests = read_requests(rlist, connections)
+
+        # 3) .............................................
         if requests:
             b_request = requests.pop()
             b_response = handle_default_request(b_request)

@@ -1,6 +1,0 @@
-2019-08-22 22:29:43,748 - INFO - Server was started at localhost:8000
-2019-08-22 22:29:50,410 - INFO - Client was detected at ('127.0.0.1', 50043)
-2019-08-22 22:30:02,983 - DEBUG - get_echo : {'action': 'echo', 'time': 1566502202.843409, 'user': '8eb36dcd54fd8312ed006d70c199610c9be80ee86dbf8fd219e732dec6fe0d8c', 'from': 'my_account_name', 'data': 'hello'}
-2019-08-22 22:30:49,253 - DEBUG - get_echo : {'action': 'echo', 'time': 1566502249.237891, 'user': '496625cde398c496f276127ff5f3e41ebb1487972fa63ae3f2c20efac0805762', 'from': 'my_account_name', 'data': 'hi'}
-2019-08-22 22:32:46,908 - INFO - Client was detected at ('127.0.0.1', 50053)
-2019-08-22 22:33:14,988 - DEBUG - get_echo : {'action': 'echo', 'time': 1566502394.988947, 'user': '288471502f440d8b5dfc92fd0632e167b2eae5f666228585b270d44d28e217bd', 'from': 'my_account_name', 'data': 'hello, guys'}

@@ -1,39 +1,23 @@
 echo_message = {
-    'action': 'echo',
-    'time': None,
-    'user': None,
-
-    'from': None,
-    'data': None,
+    'message': None,
 }
 
 
 presence_message = {
-    'action': 'presence',
-    'time': None,
-
-    'type': 'status',
-    'user': {
-        'account_name': None,
-        'status': None,
-    },
+    'message': 'presence',
 }
 
 
 private_message = {
-    'action': 'msg',
-    'time': None,
-
-    'to': None,
     'from': None,
+    'to': None,
     'message': None
 }
 
 
+# "Плохого" сообщения не бывает. Бывает "плохой" request
 bad_message = {
-    'action': 'bad_request',
-    'time': None,
-
     'from': None,
-    'data': None,
+    'to': None,
+    'message': None,
 }

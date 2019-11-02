@@ -1,4 +1,8 @@
-from settings import INSTALLED_APPS
+try:
+    from settings import INSTALLED_APPS
+except ImportError:
+    from server.settings import INSTALLED_APPS
+
 from functools import reduce
 
 

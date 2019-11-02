@@ -1,46 +1,54 @@
-from datetime import datetime
 import hashlib
+from datetime import datetime
 
 
 try:
-    from .messages import echo_message, private_message, bad_message
+    from .messages import echo_message, private_message, bad_message, presence_message
 except ImportError:
-    from messages import echo_message, private_message, bad_message
+    from messages import echo_message, private_message, bad_message, presence_message
 
 
-def make_echo_request():
+def make_echo_message(account_name):
     message = echo_message
 
-    message['from'] = 'my_account_name'
-    message['data'] = input('Введите данные echo-запроса: ')
+    message['message'] = input('Введите данные echo-запроса: ')
 
-    hash_obj = hashlib.sha256()
-    hash_obj.update(
-        str(datetime.now().timestamp()).encode()
-    )
-    message['user'] = hash_obj.hexdigest()
+    # message['time'] = datetime.now().timestamp()
+    # message['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    message['time'] = datetime.now().timestamp()
+    # hash_obj = hashlib.sha256()
+    # hash_obj.update(
+    #     str(datetime.now().timestamp()).encode()
+    # )
+    # message['user'] = hash_obj.hexdigest()
+
     return message
 
 
-def make_private_message():
+def make_presence_message(account_name):
+    message = presence_message
+
+    return message
+
+
+def make_private_message(account_name):
     message = private_message
 
-    # TODO 2: брать имя своего аккаунта из файла настроек клиента
-    message['from'] = 'my_account_name'
+    message['from'] = account_name
     message['to'] = input('Введите имя контакта получателя: ')
     message['message'] = input('Введите текст сообщения: ')
 
-    message['time'] = datetime.now().timestamp()
     return message
 
 
-def test_bad_request():
+# Функцию необходимо переработать. "Плохого" сообщения не бывает. Бывает "плохой" request
+def test_bad_request(account_name):
     message = bad_message
 
-    message['from'] = 'my_account_name'
-    message['data'] = input('Введите данные BAD-запроса: ')
+    message['user'] = account_name
+    message['from'] = account_name
+    message['message'] = input('Введите данные BAD-запроса: ')
 
     message['time'] = datetime.now().timestamp()
+
     return message

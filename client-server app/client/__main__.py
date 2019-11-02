@@ -18,6 +18,10 @@ parser.add_argument(
     '-m', '--mode', type=str, default='w',
     help='Sets client mode'
 )
+parser.add_argument(
+    '-a', '--account', type=str, default=None,
+    help='Sets account name'
+)
 
 args = parser.parse_args()
 
@@ -45,6 +49,11 @@ try:
     sock = socket.socket()
     sock.connect((host, port))
     logger.info('Client was started at %s:%s', host, port)
+
+    # Отправить "presence_message" на сервер
+    b_request = make_request('presence', args.account)
+    sock.send(b_request)
+    response = sock.recv(buffer_size)
 
     if args.mode == 'w':
         while True:

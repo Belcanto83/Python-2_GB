@@ -9,3 +9,9 @@ def send_private_message(request):
     data['message'] = request.get('message')
 
     return make_response(request, 200, data)
+
+
+def handle_presence_message(request):
+    data = 'Connection accepted'
+
+    return make_response(request, 200, data)
